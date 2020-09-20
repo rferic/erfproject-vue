@@ -1,0 +1,18 @@
+.forms__input {
+  border: 0;
+  box-shadow: 2px 2px lighten($color: $dark-grey, $amount: 20);
+  color: $dark-grey;
+  font-size: 1.2rem;
+  height: 30px;
+  transition: border-bottom .3s ease;
+  width: 100%;
+
+  &:focus {
+    box-shadow: 2px 2px $primary;
+    outline: none;
+  }
+
+  &.is-invalid {
+    box-shadow: 2px 2px $danger;
+  }
+}
