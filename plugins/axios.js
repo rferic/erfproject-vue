@@ -8,9 +8,11 @@ export default function ({ app, $axios, store }) {
       config.headers['Content-Type'] = 'application/json'
       config.headers['Accept'] = 'application/json'
     }
+  })
 
-    if ( store.state.auth.access_token ) {
-      config.headers.common['Authorization'] =  `Bearer ${store.state.auth.access_token}`;
+  $axios.onError(error => {
+    if ( error.response.data.message ) {
+      app.$toast.error(error.response.data.message)
     }
   })
 }

@@ -19,12 +19,25 @@
     background-color: $primary;
     box-shadow: 2px 2px lighten($color: $primary, $amount: 20);
 
-    &:disabled {
-      background-color: lighten($color: $primary, $amount: 1);
-    }
-
     &:hover {
       background-color: darken($color: $primary, $amount: 20);
+    }
+
+    &:disabled {
+      background-color: lighten($color: $primary, $amount: 20);
+    }
+  }
+
+  &.btn-github {
+    background-color: $github;
+    box-shadow: 2px 2px lighten($color: $github, $amount: 20);
+
+    &:hover {
+      background-color: darken($color: $github, $amount: 20);
+    }
+
+    &:disabled {
+      background-color: lighten($color: $github, $amount: 20);
     }
   }
 

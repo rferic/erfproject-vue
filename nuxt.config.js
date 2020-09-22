@@ -39,7 +39,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/axios.js' },
-    { src: '~/plugins/vuex-persist.js', ssr: false }
+    { src: '~/plugins/vuex-persist.js', ssr: false },
   ],
   /*
   ** Auto import components
@@ -50,6 +50,23 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    ['nuxt-fontawesome', {
+      component: 'fa', //customize component name
+      imports: [
+        {
+          set: '@fortawesome/free-solid-svg-icons',
+          icons: ['faLightbulb']
+        },
+          {
+            set: '@fortawesome/free-brands-svg-icons',
+            icons: ['faGithub']
+          },
+          {
+            set: '@fortawesome/free-regular-svg-icons',
+            icons: ['faLightbulb']
+          }
+      ]
+    }]
   ],
   /*
   ** Nuxt.js modules
@@ -57,22 +74,82 @@ export default {
   modules: [
     '@nuxtjs/bulma',
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
+    '@nuxtjs/toast'
   ],
   // Axios
   axios: {
     baseURL: env.baseURL
+  },
+  // Auth
+  auth: {
+    vuex: {
+      namespace: 'nuxtauth'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            url: '/auth/login',
+            method: 'post',
+            propertyName: 'data.access_token'
+          },
+          user: {
+            url: '/me',
+            method: 'get',
+            propertyName: 'data'
+          },
+          logout: {
+            url: '/auth/logout',
+            method: 'get'
+          }
+        }
+      },
+      custom: {
+        endpoints: {
+          login: {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            url: '/auth/social-login',
+            method: 'post',
+            propertyName: 'data.access_token'
+          },
+          user: {
+            url: '/me',
+            method: 'get',
+            propertyName: 'data'
+          },
+          logout: {
+            url: '/auth/logout',
+            method: 'get'
+          }
+        }
+      }
+    },
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/'
+    }
+  },
+  // Toast
+  toast: {
+    position: 'top-right',
+    duration: 3000,
+    keepOnHover: true,
+    theme: 'bubble'
   },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
-    postcss: {
-      preset: {
-        features: {
-          customProperties: false
-        }
-      }
-    },
+    transpile: ['@nuxtjs/auth']
   }
 }
