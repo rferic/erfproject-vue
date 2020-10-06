@@ -72,7 +72,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/bulma',
+    'nuxt-buefy',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/toast'

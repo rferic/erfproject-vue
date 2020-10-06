@@ -1,8 +1,9 @@
 <template>
   <div>
     <header-layout
-      title="ERFProject"
-      :subtitle="`Welcome ${$auth.user ? $auth.user.name : ''}`"
+      v-if="$auth.user"
+      :title="$auth.user.name"
+      :subtitle="$auth.user.email"
     />
   </div>
 </template>
@@ -11,6 +12,7 @@
 import HeaderLayout from '@/components/Layout/Header'
 
 export default {
+  name: 'me',
   middleware: ['auth'],
   components: { HeaderLayout }
 }
